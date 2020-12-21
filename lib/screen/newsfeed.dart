@@ -2,21 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewsFeed extends StatelessWidget {
+  int likecount = 0;
   final double cardWidth, cardheight;
   String description;
   Image bodyimages;
+  final Image profilelogo;
   NewsFeed(
       {@required this.cardWidth,
       @required this.cardheight,
       @required this.bodyimages,
-      @required this.description});
+      @required this.description,
+      @required this.profilelogo});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: cardWidth,
-      height: cardWidth * 8,
-      color: Colors.red,
+      height: cardWidth * 1.2,
+      color: Colors.white,
       child: _newsfeed(),
     );
   }
@@ -42,16 +45,7 @@ class NewsFeed extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             ),
             child: Column(
-              children: [
-                OutlineButton(
-                  onPressed: () {},
-                  child: Text('f',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                      )),
-                ),
-              ],
+              children: [OutlineButton(onPressed: () {}, child: profilelogo)],
             ),
           ),
           Column(
@@ -130,7 +124,6 @@ class NewsFeed extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Text(
           description,
-          textAlign: TextAlign.left,
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ));
   }
@@ -169,7 +162,7 @@ class NewsFeed extends StatelessWidget {
                               size: 15,
                               color: Colors.white,
                             )),
-                        Text(" 5.3K"),
+                        Text(likecount.toString()),
                       ],
                     )
                   ],
@@ -196,9 +189,7 @@ class NewsFeed extends StatelessWidget {
                   ],
                 ),
               ],
-            )
-                // child: Text('Hello this is a print statement'),),
-                )),
+            ))),
         _buttons(),
       ],
     );
@@ -221,7 +212,12 @@ class NewsFeed extends StatelessWidget {
                     SizedBox(
                       width: 8,
                     ),
-                    Text('Like')
+                    GestureDetector(
+                      child: Text('Like'),
+                      onTap: () {
+                        likecount++;
+                      },
+                    )
                   ],
                 )
               ],
